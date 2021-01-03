@@ -17,6 +17,9 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/couponbook")
+/*
+    CouponBook Main Controller
+ */
 public class MainController {
 
     @Autowired
@@ -83,18 +86,6 @@ public class MainController {
             map.put("result_tag", "no data found.");
         }
         responseRestAPI(response, map);
-    }
-
-    /*
-        Http 응답 메세지 설정
-     */
-    public void responseRestAPI(HttpServletResponse response, Map<String, Object> map) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonStr = mapper.writeValueAsString(map);
-
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json; charset=UTF-8");
-        response.getWriter().write(jsonStr);
     }
 
     /*
@@ -180,4 +171,18 @@ public class MainController {
         }
         responseRestAPI(response, map);
     }
+
+    /*
+        Http 응답 메세지 설정
+     */
+    public void responseRestAPI(HttpServletResponse response, Map<String, Object> map) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonStr = mapper.writeValueAsString(map);
+
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json; charset=UTF-8");
+        response.getWriter().write(jsonStr);
+    }
+
+
 }

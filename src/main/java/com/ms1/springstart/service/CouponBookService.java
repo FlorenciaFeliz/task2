@@ -15,7 +15,9 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-//@RequiredArgsConstructor //에러나서 주석 처리함
+/*
+    CouponBook Service
+ */
 public class CouponBookService {
 
     private CouponBookRepository couponBookRepository;
@@ -61,7 +63,6 @@ public class CouponBookService {
         int randomCount = 1;
 
         CouponBook couponBook = null;
-        System.out.println("service >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ");
         if (type != null) {
             List<String> coupones = null;
 
@@ -94,21 +95,16 @@ public class CouponBookService {
 
                     isseudCouponIdList = couponBookRepository.checkValidationCheckCouponId(couponId, param1, param2);
 
-                    System.out.println("1111111111");
                     if (isseudCouponIdList != null && !isseudCouponIdList.isEmpty()) {
-                        System.out.println("22222222");
                         couponBook = updateCoupon(type, coupon);
                     } else {
-                        System.out.println("33333");
                     }
                     break;
                 default:
                     break;
             }
         }
-        System.out.println("4444444");
         if (couponBook != null && !couponBook.getCoupon_id().isEmpty()) {
-            System.out.println("555555");
             return couponBook.getCoupon_id();
         } else {
             return null;

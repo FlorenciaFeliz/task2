@@ -4,6 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
+/*
+    CouponBook Repository
+ */
 public interface CouponBookRepository extends JpaRepository<CouponBook, String> {
 
     /*
@@ -19,7 +22,7 @@ public interface CouponBookRepository extends JpaRepository<CouponBook, String> 
     List<String> findForIssuedCouponList();
 
     /*
-        쿠폰 사용 또는 취소하기 전 쿠폰 ID Validation Check
+        쿠폰 사용 또는 취소 전, 쿠폰 ID Validation Check
      */
     @Query("select coupon_id from CouponBook where coupon_id = ?1 and issue_yn = 'Y' and use_tp_cd in (?2, ?3)")
     String checkValidationCheckCouponId(String coupon_id, String use_tp_cd1, String use_tp_cd2);
@@ -35,5 +38,4 @@ public interface CouponBookRepository extends JpaRepository<CouponBook, String> 
      */
     @Query("select concat(e.coupon_id, ' (만료일 : ', e.expire_date, ')') from CouponBook e where issue_yn = 'Y' and use_tp_cd <> 'Y' and expire_date <= DATEADD('DAY', 3, current_date) and expire_date >= current_date order by expire_date, issue_date")
     List<String> findForExpiredCouponForNotice();
-
 }
