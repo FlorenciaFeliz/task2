@@ -50,12 +50,12 @@ public class MainController {
         [API 2] 사용자에게 쿠폰 지급
      */
     @PutMapping("/issue")
-    public void issueCoupon(@RequestBody CouponBook coupon, HttpServletResponse response) throws Exception {
+    public void issueCoupon(HttpServletResponse response) throws Exception {
         List<CouponBook> couponBook = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
         String coupon_id = "";
 
-        coupon_id = couponBookService.update(CouponUseType.valueOf("issue"), coupon);
+        coupon_id = couponBookService.update(CouponUseType.valueOf("issue"), new CouponBook(""));
 
         if (coupon_id != null && !coupon_id.isEmpty()) {
             map.put("result_message", "'" + coupon_id + "' " + "쿠폰이 지급되었습니다.");

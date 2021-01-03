@@ -11,7 +11,7 @@ PUT http://localhost:8080/couponbook/cancel
 Content-Type: application/json
 
 {
-  "coupon_id" : "KhfuK-rm1cA-hGjw1yPs"
+  "coupon_id" : "CUNeF-CoXTh-JJdwvEFW"
 }
 
 ### 4. 쿠폰 사용 API (재사용 불가)
@@ -19,7 +19,7 @@ PUT http://localhost:8080/couponbook/use
 Content-Type: application/json
 
 {
-  "coupon_id" : "j9cdL-j50Mo-7Li52Mht"
+  "coupon_id" : "CUNeF-CoXTh-JJdwvEFW"
 }
 
 ### 3. 사용자에게 지급된 쿠폰 목록 조회 API
@@ -29,9 +29,6 @@ Accept: application/json
 ### 2. 쿠폰 랜덤 지급 API
 PUT http://localhost:8080/couponbook/issue
 Content-Type: application/json
-
-{
-}
 
 ### 1. 랜덤 쿠폰 생성 API
 POST http://localhost:8080/couponbook/create

@@ -64,7 +64,7 @@
             , USE_TP_CD
     ;
     ```
-    ![img_7.png](Images/img_7.png)
+    ![img_5.png](Images/img_5.png)
     ```sql
     /* 테이블 스키마 */
     SELECT ORDINAL_POSITION AS No -- 번호
@@ -98,22 +98,141 @@
 
 ### 4. API 목록
 #### [참고] CouponBookRequest.http
-1. 랜덤 쿠폰 생성 API 
+1. 랜덤 쿠폰 생성 API
+- 쿠폰번호 : XXXXX-XXXXX-XXXXXXXX
+- 지급여부 : N
+- 사용여부 : N
+   ```http request
+    POST http://localhost:8080/couponbook/create
+    Content-Type: application/json
+    
+    {
+    "cnt": 5
+    }
+    ```
+    ```http request
+    {
+      "result_message": "5건의 쿠폰이 생성되었습니다.",
+      "result_tag": "ok"
+    }
+    
+    Response code: 200; Time: 33ms; Content length: 55 bytes
+    ```   
+
 2. 쿠폰 랜덤 지급 API
+- 지급여부 : Y
+- 지급일자 : sysdate
+- 만료일자 : sysdate + 5days
+    ```http request
+    PUT http://localhost:8080/couponbook/issue
+    Content-Type: application/json
+    ```
+    ```http request
+    {
+    "result_message": "'WTDXq-U5l9f-5k69wOf8' 쿠폰이 지급되었습니다.",
+    "result_tag": "ok"
+    }
+    
+    Response code: 200; Time: 31ms; Content length: 74 bytes
+    ```   
+
 3. 사용자에게 지급된 쿠폰 목록 조회
+   ```http request
+    GET http://localhost:8080/couponbook/list/issue
+    Accept: application/json
+    ```
+    ```http request
+    {
+    "result_message": [
+    "CUNeF-CoXTh-JJdwvEFW",
+    "WTDXq-U5l9f-5k69wOf8",
+    "kneBR-UHZPn-Lf7yCG0X",
+    "r9A0b-KC8fI-ZGhh7sE3"
+    ],
+    "result_tag": "ok"
+    }
+    
+    Response code: 200; Time: 23ms; Content length: 130 bytes
+    ```   
+
+4. 쿠폰 사용 API (재사용 불가)
+- 사용구분코드 : Y (사용)
+- 사용일자 : sysdate
    ```http request
     PUT http://localhost:8080/couponbook/use
     Content-Type: application/json
-       
+    
     {
     "coupon_id" : "j9cdL-j50Mo-7Li52Mht"
     }
     ```
-4. 쿠폰 사용 API (재사용 불가)
-5. 쿠폰 사용 취소 API (취소된 쿠폰은 재사용 가능
-6. 당일 만료될 쿠폰 목록 조회 API (단, 사용된 쿠폰은 제외)
-7. 만료 3일전 아직까지 사용 안된 쿠폰 목록 조회 (오늘을 기준으로 만료일이 지나간 쿠폰은 목록에서 제외)
+    ```http request
+    {
+      "result_message": "'CUNeF-CoXTh-JJdwvEFW' 쿠폰 사용 처리 되었습니다.",
+      "result_tag": "ok"
+    }
+    
+    Response code: 200; Time: 27ms; Content length: 77 bytes
+    ```   
+    ```http request
+    {
+      "result_message": "쿠폰을 확인하세요. 번호가 잘못되었거나 이미 사용된 쿠폰입니다.",
+      "result_tag": "fail"
+    }
+    
+    Response code: 200; Time: 34ms; Content length: 76 bytes
+    ```
 
+5. 쿠폰 사용 취소 API (취소된 쿠폰은 재사용 가능)
+- 사용구분코드 : C (취소)
+- 사용일자(취소일자) : sysdate 
+    ```http request
+    PUT http://localhost:8080/couponbook/cancel
+    Content-Type: application/json
+    
+    {
+      "coupon_id" : "KhfuK-rm1cA-hGjw1yPs"
+    }
+    ```
+   ```http request
+    {
+    "result_message": "'CUNeF-CoXTh-JJdwvEFW' 쿠폰 사용 취소 되었습니다.",
+    "result_tag": "ok"
+    }
+    
+    Response code: 200; Time: 28ms; Content length: 77 bytes
+    ```
+
+6. 당일 만료될 쿠폰 목록 조회 API (단, 사용된 쿠폰은 제외)
+    ```http request
+    GET http://localhost:8080/couponbook/list/expire
+    Accept: application/json
+    ```   
+    ```http request
+    {
+      "result_message": [
+        "CUNeF-CoXTh-JJdwvEFW"
+      ],
+      "result_tag": "ok"
+    }
+    
+    Response code: 200; Time: 98ms; Content length: 61 bytes
+    ```
+
+7. 만료 3일전 아직까지 사용 안된 쿠폰 목록 조회 (오늘을 기준으로 만료일이 지나간 쿠폰은 목록에서 제외)
+    ```http request
+    GET http://localhost:8080/couponbook/list/expire/notice
+    Accept: application/json
+    ```
+    ```http request
+    {
+      "result_message": [
+        "WTDXq-U5l9f-5k69wOf8 (만료일 : 2021-01-04)",
+        "kneBR-UHZPn-Lf7yCG0X (만료일 : 2021-01-05)"
+      ],
+      "result_tag": "ok"
+    }
+    ```
 
 ### 5. 프로젝트 실행
 - src > main > java > com.ms1.springstart > web > SpringStartApplication > 우클릭, "Run SpringStartAppAllication"
@@ -133,9 +252,9 @@
 
 
 ### 6. Http Request 테스트
-- src > main > java > com.ms1.springstart > web > CouponBookRequest.http
-    > CouponBookRequest.http 소스 오픈, 원하는 API 실행
-    ![img_8.png](Images/img_8.png) 
+- src > main > java > com.ms1.springstart > web > CouponBookRequest.http 
+    - CouponBookRequest.http 소스 오픈, 원하는 API 실행
+    - ![img_8.png](Images/img_8.png) 
 
 
 ### 7. Test Code
