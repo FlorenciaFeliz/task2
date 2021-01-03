@@ -1,6 +1,6 @@
 # README.md
 
-##Rest API 기반 쿠폰시스템 개발
+## Rest API 기반 쿠폰시스템 개발
 
 ### 1. 개발 환경
 - Mac OS
@@ -99,9 +99,9 @@
 ### 4. API 목록
 #### [참고] CouponBookRequest.http
 1. 랜덤 쿠폰 생성 API
-- 쿠폰번호 : XXXXX-XXXXX-XXXXXXXX
-- 지급여부 : N
-- 사용여부 : N
+    - 쿠폰번호 : XXXXX-XXXXX-XXXXXXXX
+    - 지급여부 : N
+    - 사용여부 : N
    ```http request
     POST http://localhost:8080/couponbook/create
     Content-Type: application/json
@@ -120,9 +120,9 @@
     ```   
 
 2. 쿠폰 랜덤 지급 API
-- 지급여부 : Y
-- 지급일자 : sysdate
-- 만료일자 : sysdate + 5days
+    - 지급여부 : Y
+    - 지급일자 : sysdate
+    - 만료일자 : sysdate + 5days
     ```http request
     PUT http://localhost:8080/couponbook/issue
     Content-Type: application/json
@@ -156,8 +156,8 @@
     ```   
 
 4. 쿠폰 사용 API (재사용 불가)
-- 사용구분코드 : Y (사용)
-- 사용일자 : sysdate
+    - 사용구분코드 : Y (사용)
+    - 사용일자 : sysdate
    ```http request
     PUT http://localhost:8080/couponbook/use
     Content-Type: application/json
@@ -184,8 +184,8 @@
     ```
 
 5. 쿠폰 사용 취소 API (취소된 쿠폰은 재사용 가능)
-- 사용구분코드 : C (취소)
-- 사용일자(취소일자) : sysdate 
+    - 사용구분코드 : C (취소)
+    - 사용일자(취소일자) : sysdate 
     ```http request
     PUT http://localhost:8080/couponbook/cancel
     Content-Type: application/json
