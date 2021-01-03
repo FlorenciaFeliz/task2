@@ -1,0 +1,32 @@
+#dependency에 추가한 H2 활성화 처리
+
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: false
+      generate-ddl: true
+
+  logging:
+    level:
+      org:
+        hibernate:
+          SQL: DEBUG
+          type:
+            descriptor:
+              sql:
+                BasicBinder: TRACE
+
+propertyTest: test
+propertyTestList : 1,2,3
+property:
+  test:
+    value: property call test
