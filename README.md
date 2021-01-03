@@ -218,6 +218,14 @@
     
     Response code: 200; Time: 98ms; Content length: 61 bytes
     ```
+    ```http request
+    {
+      "result_message": "금일 만료될 쿠폰이 없습니다.",
+      "result_tag": "no data found."
+    }
+    
+    Response code: 200; Time: 25ms; Content length: 67 bytes
+    ```
 
 7. 만료 3일전 아직까지 사용 안된 쿠폰 목록 조회 (오늘을 기준으로 만료일이 지나간 쿠폰은 목록에서 제외)
     ```http request
@@ -232,6 +240,14 @@
       ],
       "result_tag": "ok"
     }
+    ```
+    ```http request
+    {
+      "result_message": "만료 3일 전 사용 안된 쿠폰이 없습니다.",
+      "result_tag": "no data found."
+    }
+    
+    Response code: 200; Time: 86ms; Content length: 74 bytes
     ```
 
 ### 5. 프로젝트 실행

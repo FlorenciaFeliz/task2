@@ -145,7 +145,7 @@ public class MainController {
             map.put("result_message", couponBook);
             map.put("result_tag", "ok");
         } else {
-            map.put("result_message", "당일 만료된 쿠폰이 없습니다.");
+            map.put("result_message", "금일 만료될 쿠폰이 없습니다.");
             map.put("result_tag", "no data found.");
         }
         responseRestAPI(response, map);
